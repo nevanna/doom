@@ -1,0 +1,54 @@
+
+#before u nee instal libs
+#at first sdl2 downalad tgz. then https://wiki.libsdl.org/Installation
+#sudo apt-get install libsdl2-mixer-dev
+#sudo apt-get install libsdl2-ttf-dev
+#sudo apt-get install libsdl2-net-dev
+#sudo apt-get install libsdl2-image-dev
+#sudo apt install apt-file
+# apt-file update
+#find where h file is apt-file search SDL_image.h
+#There is Makefile for linux systems
+#There is Makefile for linux systems
+#There is Makefile for linux systems
+NAME = doom
+
+FILES =	ft_key.c ft_menu.c ft_secondary.c  ft_work_with_text.c ft_menu_net.c ft_menu_spec.c\
+		main.c ft_main_loop.c ft_draw_game.c ft_network.c ft_key_handle.c ft_mouse.c\
+		ft_net_server.c ft_net_client.c ft_draw_net_part.c ft_draw_ask_about_host.c ft_draw_func.c\
+		ft_draw_something_er.c ft_draw_net_game.c ft_work_with_data.c ft_music.c \
+		ft_times_of_day.c ft_tab_menu.c\
+		ft_atof.c		ft_new_load_data.c	ft_realloc.c		ft_scan_digit.c		ft_sect_data.c		ft_unload_data.c \
+		ft_vert_data.c ft_draw_intro.c ft_portal_animation.c
+
+HEADERS = -I include -I libft/include  -I libft/src
+
+SRC = $(addprefix src/, $(FILES))
+
+OBJ = $(addprefix objectives/, $(FILES:.c =.o))
+
+LIN = -lSDL2 -lSDL2_image -lSDL2_net -lSDL2_ttf -lSDL2_mixer
+
+FLAGS = -Wall -Wextra -Werror
+
+LFT =  libft/src/libft.a
+
+all: $(NAME)
+
+$(NAME): $(SRC)
+	make -C ./libft/src
+	#$(FLAGS) -fsanitize=address -g
+	gcc -o $(NAME) $(SRC)   $(LFT) $(LIN) $(HEADERS)
+libft:
+	make -C ./libft/src
+
+clean:
+	make clean -C ./libft/src
+	rm -rf objectives
+
+fclean: clean
+	rm -Rf $(NAME)
+	make fclean -C ./libft/src
+
+re: fclean all
+
